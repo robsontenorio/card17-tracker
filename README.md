@@ -1,28 +1,116 @@
-# card17-tracker
+# ABOUT CARD17
 
-> An electron-vue project
+**CARD17** it is Faeria fan work. It is composed by three main  projects:
 
-#### Build Setup
+- API: http://api.card17.com
+- WEBSITE: http://www.card17.com
+- DECK TRACKER: client app (this project)
+
+
+###
+
+<img src="card17_overview.png">
+
+
+## API
+
+Backend operations, card database, user database.
+
+- Laravel: www.laravel.com
+- Mysql
+
+## WEBSITE
+
+Deck builder, user statistcs, global statistics.
+
+- HTML + CSS + JS
+- Vue : www.vuejs.org
+
+
+## DECK TRACKER
+
+Client app, deck tracker.
+
+- Electron-vue: https://github.com/SimulatedGREG/electron-vue
+- Electron: http://electron.atom.io
+
+# DECK TRACKER OVERVIEW
+
+The DECK TRACKER is a client app running on user machine. It provides a user interface for showing cards revealed while playing Faeria.
+
+By listening networking packets sent from Game to Faeria it is possible to know what is happenning while playing.
+Commom events: `findMatch`, `startMatch`, `createGameCard`, `END_GAME` ...
+
+Each of theese events has attributes that are handled by tracker in order to identify current action to be executed. Like: i have bought a card, opponent played a card, victory, loss ...
+
+- **pcap.js**: read network packets based on patterns.
+
+- **parser.js**: get packet read from `pcap.js` and extract needed data to be handled by user interface.
+
+- **user interface**: listen for expected events got by `pcap.js` and parsed by `parser.js`. Well, also responsible for the sexy window.
+
+
+**NOTE**: this works locally and does not send any data to CARD17 servers... for now!
+
+ <img src="tracker_overview.png">
+
+# DECK TRACKER SETUP
+
+Well, if you have reached this point you must be an experienced developer. Setting up a development environment for modern javascript requires several steps, which I will not go into detail. But basically you will need this:
+
+- node (8+)
+- yarn or npm
+
+Windows, make sure to install:
+- npm windows-build-tools
+- Winpcap: https://www.winpcap.org/install/default.htm
+
+Linux and OSX:
+- libcap
+
+If you have the basics installed, then you can run in DEV MODE:
+
 
 ``` bash
+# enter project folder
+cd <project-folder>
+
 # install dependencies
-npm install
+yarn
 
-# serve with hot reload at localhost:9080
-npm run dev
+# make sure to build for the first time, before running in dev mode
+# not necessary build again after this time
+yarn build:win
+or
+yarn build:linux
+or
+yarn build:darwin
 
-# build electron application for production
-npm run build
 
-# run unit & end-to-end tests
-npm test
+# run in development mode
+yarn dev watch
 
-
-# lint all JS/Vue component files in `src/`
-npm run lint
+# for linux, make sure to run as root
+sudo yarn dev watch
 
 ```
 
----
+Building for PRODUCTION:
 
-This project was generated with [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[a01d4d6](https://github.com/SimulatedGREG/electron-vue/tree/a01d4d68edff32c432273320f7df716234f56146) using [vue-cli](https://github.com/vuejs/vue-cli). Documentation about the original structure can be found [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
+``` bash
+# enter project folder
+cd <project-folder>
+
+# make sure to install dependencies
+yarn
+
+# build it
+# Note you should build it only for you current platform
+
+yarn build:win
+or
+yarn build:linux
+or
+yarn build:darwin
+
+```
