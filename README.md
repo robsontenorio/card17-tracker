@@ -6,7 +6,6 @@
 - WEBSITE: http://www.card17.com
 - DECK TRACKER: client app (this project)
 
-
 ###
 
 <img src="card17_overview.png">
@@ -21,7 +20,7 @@ Backend operations, card database, user database.
 
 ## WEBSITE
 
-Deck builder, user statistcs, global statistics.
+Deck builder, user statistics, global statistics.
 
 - HTML + CSS + JS
 - Vue : www.vuejs.org
@@ -38,10 +37,10 @@ Client app, deck tracker.
 
 The DECK TRACKER is a client app running on user machine. It provides a user interface for showing cards revealed while playing Faeria.
 
-By listening networking packets sent from Game to Faeria it is possible to know what is happenning while playing.
-Commom events: `findMatch`, `startMatch`, `createGameCard`, `END_GAME` ...
+By listening networking packets sent from Game to Faeria servers it is possible to know what is happening while playing.
+Common events: `findMatch`, `startMatch`, `createGameCard`, `END_GAME` ...
 
-Each of theese events has attributes that are handled by tracker in order to identify current action to be executed. Like: i have bought a card, opponent played a card, victory, loss ...
+Each of these events has attributes that are handled by tracker in order to identify current action to be executed. Like: i have bought a card, opponent played a card, victory, loss ...
 
 - **pcap.js**: read network packets based on patterns.
 
@@ -59,7 +58,8 @@ Each of theese events has attributes that are handled by tracker in order to ide
 Well, if you have reached this point you must be an experienced developer. Setting up a development environment for modern javascript requires several steps, which I will not go into detail. But basically you will need this:
 
 - node (8+)
-- yarn or npm
+- yarn
+- npm
 
 Windows, make sure to install:
 - npm windows-build-tools
