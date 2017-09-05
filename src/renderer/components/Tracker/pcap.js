@@ -96,7 +96,7 @@ let pcap = {
       this.loggedIn = false
     }
 
-    // it is note logged? keep buffering packets
+    // it is not logged? keep buffering packets
     if (this.loggedIn === false) {
       this.buffer += data
       // yes, logged in!
