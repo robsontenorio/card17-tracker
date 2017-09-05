@@ -148,7 +148,7 @@ let parser = {
 
         // card already used/revealed
         // card not revealed
-        // explore
+        // "explore"
         let seq = card.seq.toString() + '-' + card.id.toString()
         if (seqCards.includes(seq) || card.id === 323 || card.id === 0) {
           continue

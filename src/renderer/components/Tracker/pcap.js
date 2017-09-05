@@ -91,13 +91,15 @@ let pcap = {
   prepare (nbytes, trunc) {
     data = this.handle(nbytes, trunc)
 
-    // login again with tracker opened. restart login procedure
+    // login again with tracker already opened. restart login procedure
     if (data.indexOf('dr:orbs') > 0) {
       this.loggedIn = false
     }
 
+    // it is note logged? keep buffering packets
     if (this.loggedIn === false) {
       this.buffer += data
+      // yes, logged in!
       if (this.buffer.indexOf('$signInSuccess') > 0) {
         this.loggedIn = true
         data = this.buffer
@@ -107,7 +109,7 @@ let pcap = {
 
     if (this.loggedIn === true) {
       return this.cleanData(data)
-    } else {
+    } else { // if not logged in just return empty string, so Tracker wont do anything.
       return ''
     }
   },

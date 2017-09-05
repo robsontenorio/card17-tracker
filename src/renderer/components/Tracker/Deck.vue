@@ -21,7 +21,7 @@ export default {
   name: 'deck',
   props: ['deck'],
   components: { CardMiniList },
-  data () {
+  data() {
     return {
       yak: this.getYak()
     }
@@ -33,11 +33,13 @@ export default {
     showYak: state => { return !state.match.searching && !state.match.started }
   },
   methods: {
-    getYak () {
+    // generate a random yak
+    getYak() {
       return Math.floor(Math.random() * 10)
     }
   },
   watch: {
+    // just give me a random yak when we are not searching for a match or game ended
     'showYak' () {
       this.yak = this.getYak()
     }

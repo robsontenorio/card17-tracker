@@ -4,11 +4,11 @@
   <div v-if="checking" class="has-text-centered">
     <img src="static/loading.gif" width="100" />
   </div>
-  <div v-if="fazendoDownload" class="has-text-centered">
+  <div v-if="downloading" class="has-text-centered">
     <img width="80px" src="static/downloading.gif" /> <br><br>
     <small>{{ $t('downloading update') }}</small>
     <br>
-    <span class="progresso">{{ progresso }}</span> %
+    <span class="progress">{{ progress }}</span> %
   </div>
 </div>
 </template>
@@ -16,15 +16,15 @@
 <script>
 export default {
   name: 'index-page',
-  data () {
+  data() {
     return {
       ev: null,
-      progresso: 0,
+      progress: 0,
       checking: true,
-      fazendoDownload: false
+      downloading: false
     }
   },
-  async created () {
+  async created() {
     let self = this
 
     if (process.platform === 'linux' || process.env.NODE_ENV === 'development') {
@@ -35,8 +35,8 @@ export default {
 
     this.$electron.ipcRenderer.on('download-progress', (ev, progress) => {
       self.checking = false
-      self.fazendoDownload = true
-      self.progresso = Math.floor(progress.percent)
+      self.downloading = true
+      self.progress = Math.floor(progress.percent)
     })
 
     this.$electron.ipcRenderer.on('update-not-available', () => {
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style scoped>
-.progresso {
+.progress {
   font-weight: bold;
   font-size: 30pt;
 }

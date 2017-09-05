@@ -42,14 +42,14 @@ export default {
     Decks,
     Config
   },
-  data () {
+  data() {
     return {
       activeTab: 0,
       mergeGoldenCards: false,
       addToHand: 0
     }
   },
-  async created () {
+  async created() {
     try {
       this.start()
     } catch (e) {
@@ -88,7 +88,8 @@ export default {
       'UPDATE_MATCH_DECK',
       'ADD_SEQ_CARD'
     ]),
-    orderCards (cards) {
+    // order cards like Faeria deck builder
+    orderCards(cards) {
       return _.sortBy(cards, [
         function (o) {
           let color = o.metadata.color
@@ -110,7 +111,8 @@ export default {
         'metadata.faeria', 'metadata.mountain', 'metadata.lake', 'metadata.forest', 'metadata.desert', 'nome'
       ])
     },
-    resetMatch () {
+    // restart match control variables
+    resetMatch() {
       this.addToHand = 0
       this.activeTab = 0
 
@@ -123,7 +125,7 @@ export default {
       this.RESET_MATCH()
     },
     // SELECTED DECK TO PLAY
-    setDeck (deckId) {
+    setDeck(deckId) {
       // my deck cards on simple format: {id, name, cards: {id, total} }
       let deck = _.cloneDeep(this.decks.list.find(x => x.id === deckId))
 
@@ -146,7 +148,7 @@ export default {
       }
     },
     // smart window adjustment based on total of cards from deck
-    adjustWindow (totalCards) {
+    adjustWindow(totalCards) {
       let height = (totalCards * 26) + 50
       let win = this.$electron.remote.getCurrentWindow()
       let currentHeight = win.getSize()[1]
@@ -161,7 +163,7 @@ export default {
       }
     },
     // start packet listener
-    start () {
+    start() {
       try {
         let config = this.$db
         let tcp = pcap.start()
@@ -237,10 +239,6 @@ export default {
             if (data.indexOf('|$startGame') > 0) {
               // avoid resume match in case of desconnection
               if (this.match.started === true) {
-                // this.match.pesquisando = false
-                // this.match.started = false
-                // this.match.mulliganConfirmed = false
-                // this.activeTab = 0
                 throw new Error(this.$t('Connection lost. We will begin tracking in the next match. :('))
               }
 
@@ -263,6 +261,7 @@ export default {
             }
 
             // identify oponnent
+            // Faeria has changed way how to identify opponents
             if (data.indexOf('|dr:gameMembers') > 0 || data.indexOf('|dr:opponent') > 0) {
               let user = parser.oponnent(data)
               if (user !== null) {
@@ -311,7 +310,7 @@ export default {
               }
             }
 
-            // listen for cards created on match
+            // Handle cards created on match
             if (data.indexOf('|*createGameCard') > 0 && this.match.mulliganConfirmed === true) {
               let cards = parser.createdCards(data, this.match.seqCards)
               console.log('---- LOOP START ----')
@@ -319,7 +318,7 @@ export default {
                 let seq = card.seq.toString() + '-' + card.id.toString()
 
                 // control of AddToHand
-                // ignore exlpore
+                // ignore "exlpore"
                 if ((this.addToHand > 0 && this.match.me.playerNum === card.playerNum) || card.id === 323) {
                   this.addToHand -= 1
                   this.ADD_SEQ_CARD(seq)

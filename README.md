@@ -48,8 +48,10 @@ Each of these events has attributes that are handled by tracker in order to iden
 
 - **user interface**: listen for expected events got by `pcap.js` and parsed by `parser.js`. Well, also responsible for the sexy window.
 
-
-**NOTE**: this works locally and does not send any data to CARD17 servers... for now!
+```
+** IMPORTANT **:
+this works locally and does not send any data to CARD17 servers... for now!
+```
 
  <img src="tracker_overview.png">
 
