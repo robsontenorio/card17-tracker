@@ -1,9 +1,15 @@
+# Project aborted
+
+```
+This project is not maintained anymore. For more info look for @pedroca on DISCORD APP.
+```
+
 # ABOUT CARD17
 
 **CARD17** it is Faeria fan work. It is composed by three main  projects:
 
-- API: http://api.card17.com
-- WEBSITE: http://www.card17.com
+- API: https://github.com/robsontenorio/card17-api
+- WEBSITE: https://github.com/robsontenorio/card17-web
 - DECK TRACKER: client app (this project)
 
 ###
